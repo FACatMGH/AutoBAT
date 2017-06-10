@@ -1,0 +1,14 @@
+Package: AutoBAT
+Title: Automated Analysis of Basophil Activation Testing Flow Cytometry Data
+Version: 1.0.0.9000
+Date: 2017-06-08
+Authors@R: person(“Sarita”, “Patil”, email = “sarita.patil@mgh.harvard.edu”, role = c("aut", "cre"))
+Author: Sarita Patil [aut,cre]
+Maintainer: Sarita Patil <sarita.patil@mgh.harvard.edu>
+Description: This package is designed to perform data-driven analysis of flow cytometry data from basophil activation testing. Flow cytometry data stored as .fcs files in a directory is used in the function to derive the percentage of CD63hi basophils in each .fcs file, and output includes both a table of values and a pdf of images.
+Depends: R (>= 3.3.1), methods
+Imports: flowCore, flowQ, flowViz, flowStats, flowUtils, flowClust, Biobase, xtable, rio, magrittr, tidyr, tibble, purrr, DescTools, drc
+License: GPLv3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000
