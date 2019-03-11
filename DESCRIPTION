@@ -7,8 +7,27 @@ Authors@R: c(person("Sarita", "Patil", email = "sarita.patil@mgh.harvard.edu", r
 Author: Sarita Patil [aut,cre], Agustin Calatroni [aut]
 Maintainer: Sarita Patil <sarita.patil@mgh.harvard.edu>
 Description: This package is designed to perform data-driven analysis of flow cytometry data from basophil activation testing. Flow cytometry data stored as .fcs files in a directory is used in the function to derive the percentage of CD63hi basophils in each .fcs file, and output includes both a table of values and a pdf of images.
-Depends: R (>= 3.3.1), methods
-Imports: flowCore, flowQ, flowViz, flowStats, flowUtils, flowClust, Biobase, xtable, rio, magrittr, tidyr, tibble, purrr, DescTools, drc
+Depends: 
+    R (>= 3.3.1)
+biocViews:
+Imports:
+    methods,
+    flowCore,
+    flowQ,
+    flowViz,
+    flowStats,
+    flowUtils,
+    flowClust,
+    Biobase,
+    xtable,
+    rio,
+    magrittr,
+    tidyr,
+    tibble,
+    purrr,
+    DescTools,
+    drc,
+    knitr
 License: GPLv3
 Encoding: UTF-8
 LazyData: true
