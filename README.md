@@ -16,7 +16,7 @@ Additional information can be found in Patil, et.al., "Data-driven programmatic 
 
 Installation
 ------------
-Currently, the most effcient installation is 
+Currently, the most efficient installation is 
 ``` r
 # The development version from GitHub:
 # install.packages("devtools")
