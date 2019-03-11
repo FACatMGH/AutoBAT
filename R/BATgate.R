@@ -18,39 +18,19 @@
 #' 
 #' @keywords models, cluster
 #' 
+#' @import flowCore
+#' @import flowQ
+#' @import flowViz
+#' @import flowStats
+#' @import flowUtils
+#' @import flowClust
+#' @import Biobase
+#' @import xtable
+#' @import knitr
 #' @examples
 #' BATgate(wkdir, c("Time","FSC-A","FSC-H","SSC-A","CD63","CCR3"), 2, 1)
-#' @export
 #' BATgate()
-
-# Function for loading packages for flow cytometry analysis tools from Bioconductor
-pkgLoad = function(x){
-  if(!x %in% rownames(installed.packages())){
-    repo = "http://cran.r-project.org"
-    ap_cran = available.packages(repos=repo)
-    if(x %in% rownames(ap_cran)){
-      install.packages(x,dependencies=T,repos=repo,quiet=T)
-    }else{
-      source("https://bioconductor.org/biocLite.R")
-      ap_bioC = available.packages(contrib.url(biocinstallRepos()))
-      if(x %in% rownames(ap_bioC))
-        biocLite(x, ask=F)
-    }
-  }
-  if(!require(x,character.only=T)) stop(paste("Package \'",x,"\' not found in CRAN or Bioconductor",sep=""))
-}
-
-pkgLoad("flowCore")
-pkgLoad("flowQ")
-pkgLoad("flowViz")
-pkgLoad("flowStats")
-pkgLoad("flowUtils")
-pkgLoad("flowClust")
-pkgLoad("Biobase")
-pkgLoad("xtable")
-pkgLoad("knitr")
-
-# The function
+#' @export
 BATgate <- function(workingdir, fluorophores, SSCno, medcontroltube) {
   setwd(workingdir)
   file.list <- (list.files())

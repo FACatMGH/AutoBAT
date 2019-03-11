@@ -1,53 +1,16 @@
 # Data-driven analytical algorithm for basophil activation data: Derivation of basophil activation measures
 # Written by: Sarita Patil, MD. Function published 6/8/2017
 
-#' BATmeasures: Measures of basophil activation testing
-#'
-#' @return This function analyzes basophil activation dose-response curve to produce measures of basophil activation
-#' 
-#' @author Sarita Patil, \email{sarita.patil@@mgh.harvard.edu}
-#' @param data A dataframe that contains several variables: 
-#'        groupvariables which is a grouping variable that identifies all the conditions in a dose-response curve, agconc which is the antigen concentration used in basophil stimulation, and CD63hi which is the percentage of CD63hi basophils from flow analysis in each stimulation condition)
-#' @param groupvariables The variable name of the grouping variable from the data
-#' @param output.file The name of the output file 
-#' 
-#' @return A csv file containing calculated AUC and ED50 values based on input data
-#' 
-#' @keywords models, nonlinear
-#' 
-#' @examples
-#' BATmeasures(data, patientid, output.file="BAT_AUC_ED50.csv")
-#' 
-#' @export
-#' 
-#' BATmeasures()
+#' @import rio
+#' @import magrittr
+#' @import xtable
+#' @import tidyr
+#' @import dplyr
+#' @import tibble
+#' @import purrr
+#' @import DescTools
+#' @import drc
 
-# Function for loading packages for flow cytometry analysis tools from Bioconductor
-pkgLoad = function(x){
-  if(!x %in% rownames(installed.packages())){
-    repo = "http://cran.r-project.org"
-    ap_cran = available.packages(repos=repo)
-    if(x %in% rownames(ap_cran)){
-      install.packages(x,dependencies=T,repos=repo,quiet=T)
-    }else{
-      source("https://bioconductor.org/biocLite.R")
-      ap_bioC = available.packages(contrib.url(biocinstallRepos()))
-      if(x %in% rownames(ap_bioC))
-        biocLite(x, ask=F)
-    }
-  }
-  if(!require(x,character.only=T)) stop(paste("Package \'",x,"\' not found in CRAN or Bioconductor",sep=""))
-}
-
-pkgLoad("rio")
-pkgLoad("magrittr")
-pkgLoad("xtable")
-pkgLoad("tidyr")
-pkgLoad("dplyr")
-pkgLoad("tibble")
-pkgLoad("purrr")
-pkgLoad("DescTools")
-pkgLoad("drc")
 
 # Modeling functions
 mean_drm <- function(df){
@@ -83,7 +46,22 @@ cons_drm  <- function(df){
   )
 }
 
-# The function to unite the AUC and ED50 measures
+#' BATmeasures: Measures of basophil activation testing
+#'
+#' @return This function analyzes basophil activation dose-response curve to produce measures of basophil activation
+#' 
+#' @author Sarita Patil, \email{sarita.patil@@mgh.harvard.edu}
+#' @param data A dataframe that contains several variables: 
+#'        groupvariables which is a grouping variable that identifies all the conditions in a dose-response curve, agconc which is the antigen concentration used in basophil stimulation, and CD63hi which is the percentage of CD63hi basophils from flow analysis in each stimulation condition)
+#' @param groupvariables The variable name of the grouping variable from the data
+#' @param output.file The name of the output file 
+#' 
+#' @return A csv file containing calculated AUC and ED50 values based on input data
+#' 
+#' @keywords models, nonlinear
+#' @examples
+#' BATmeasures(data, patientid, output.file="BAT_AUC_ED50.csv")
+#' @export
 BATmeasures <- function(data, groupvariables, output.file){
   data$agconc <- as.numeric(data$agconc)
   data$CD63hi <- as.numeric(data$CD63hi)
