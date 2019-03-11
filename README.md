@@ -20,7 +20,7 @@ Currently, the most efficient installation is
 ``` r
 # The development version from GitHub:
 # install.packages("devtools")
-devtools::install_github("saritaupatil/AutoBAT")
+devtools::install_github("saritaupatil/AutoBAT/AutoBAT")
 ```
 
 If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/saritaupatil/AutoBAT). Please contact with any questions or concerns.
