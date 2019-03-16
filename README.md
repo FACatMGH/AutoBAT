@@ -14,6 +14,8 @@ For transparency of analysis, reproducibility, and high-throughput use, these to
 
 Additional information can be found in Patil, et.al., "Data-driven programmatic approach to analysis of basophil activation tests", Cytometry: Part B - Clinical Cytometry. In press.
 
+The package is also available as a docker instance: saritapatil/autobat:1.0
+
 Installation
 ------------
 Currently, the most efficient installation is 
