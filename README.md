@@ -12,7 +12,7 @@ These tools were developed for use with data generated from basophil activation 
 
 For transparency of analysis, reproducibility, and high-throughput use, these tools provide a algorithm for data-driven identification of basophils and a cutoff for basophil degranulation (CD63 upregulation).  Subsequent derivation of basophil activation testing measures using BATmeasures can be used as part of a workflow or separately.
 
-Additional information can be found in Patil, et.al., "Data-driven programmatic approach to analysis of basophil activation tests", Cytometry: Part B - Clinical Cytometry. In press.
+Additional information can be found in Patil, et.al., "Data-driven programmatic approach to analysis of basophil activation tests", Cytometry: Part B - Clinical Cytometry. 2018 Jul;94(4):667-673. doi: 10.1002/cyto.b.21537.
 
 The package is also available as a docker instance: saritapatil/autobat:1.0
 
