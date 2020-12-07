@@ -3,7 +3,7 @@ rm(list=ls())
 library(readxl)
 library(tidyverse)
 library(caTools)
-library(drc)
+library(glue)
 library(ggpubr)
 
 workingdir <- "/Volumes/ShreffLabRemote/Vedanta BAT"
@@ -153,6 +153,12 @@ final_auc$AUC <- unlist(final_auc$AUC)
 final_auc$max.x <- unlist(final_auc$max.x)
 final_auc$stim <- unlist(final_auc$stim)
 write.csv(as.data.frame(final_auc), "~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/analysis/BAT_analysis/summary_auc_data.csv")
+
+rawdata$patient <- unlist(rawdata$patient)
+rawdata$exp_name <- unlist(rawdata$exp_name)
+rawdata$stim <- unlist(rawdata$stim)
+rawdata$visit <- unlist(rawdata$visit)
+write.csv(as.data.frame(rawdata), "~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/analysis/BAT_analysis/raw_data.csv")
 
 
 # export plots
