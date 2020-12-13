@@ -6,12 +6,12 @@ library(caTools)
 library(glue)
 library(ggpubr)
 
-workingdir <- "/Volumes/ShreffLabRemote/Vedanta BAT"
+workingdir <- "~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/Lab/Lab Results/BAT/"
 xlfiles <- list.files(workingdir, pattern = "*.xls$", full.names = TRUE, recursive = TRUE)
 # manually removing the first 18 done prior to correcting low Ca issue
-xlfiles <- xlfiles[!grepl("Suboptimal", xlfiles)]
+#xlfiles <- xlfiles[!grepl("Suboptimal", xlfiles)]
 
-exp_names <- map(strsplit(xlfiles, split = "/"), 5)
+exp_names <- map(strsplit(xlfiles, split = "/"), 12)
 exp_names <- rep(exp_names, each = 23)
 
 rawdata <- map_df(xlfiles, read_excel) %>%
@@ -81,6 +81,7 @@ rawdata <- rawdata %>%
 
 
 nested_data <- rawdata %>%
+#  filter(count > 100) %>%
   group_by(exp_name, stim) %>%
   nest()
 
@@ -131,7 +132,7 @@ n_plots <- auc %>%
          )
 
 edmax_with_plots <- auc %>%
-  filter(n > 1 & AUC >10) %>%
+  filter(n > 2 & AUC >10) %>%
 #  mutate(drm_model = map(data, crs_drm)) %>%
   mutate(rawplot = map2(data, stim, ~ggplot(data = ., aes(x = agconc, y = CD63hi)) +
                           geom_smooth(span = 0.75)),
@@ -146,20 +147,6 @@ edmax_with_plots <- auc %>%
   )
 
 
-# export data
-
-final_auc <- dplyr::select(edmax_with_plots, -data, -rawplot, -finalplot)
-final_auc$AUC <- unlist(final_auc$AUC)
-final_auc$max.x <- unlist(final_auc$max.x)
-final_auc$stim <- unlist(final_auc$stim)
-write.csv(as.data.frame(final_auc), "~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/analysis/BAT_analysis/summary_auc_data.csv")
-
-rawdata$patient <- unlist(rawdata$patient)
-rawdata$exp_name <- unlist(rawdata$exp_name)
-rawdata$stim <- unlist(rawdata$stim)
-rawdata$visit <- unlist(rawdata$visit)
-write.csv(as.data.frame(rawdata), "~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/analysis/BAT_analysis/raw_data.csv")
-
 
 # export plots
 setwd("~/Dropbox (Partners HealthCare)/Projects/Vedanta-1453/analysis/BAT_analysis/")
@@ -172,4 +159,18 @@ nested_plots <- edmax_with_plots %>%
 
 map2(paste0(nested_plots$exp_name, ".pdf", sep=""), map(nested_plots$data, ~cowplot::plot_grid(plotlist = .$finalplot)), ggsave)
 
+
+# export data
+
+final_auc <- dplyr::select(edmax_with_plots, -data, -rawplot, -finalplot)
+final_auc$AUC <- unlist(final_auc$AUC)
+final_auc$max.x <- unlist(final_auc$max.x)
+final_auc$stim <- unlist(final_auc$stim)
+write.csv(as.data.frame(final_auc), "summary_auc_data.csv")
+
+rawdata$patient <- unlist(rawdata$patient)
+rawdata$exp_name <- unlist(rawdata$exp_name)
+rawdata$stim <- unlist(rawdata$stim)
+rawdata$visit <- unlist(rawdata$visit)
+write.csv(as.data.frame(rawdata), "raw_data.csv")
 
